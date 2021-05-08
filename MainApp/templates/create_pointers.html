@@ -1,0 +1,106 @@
+{% load static %}
+<script>
+	function getcode()
+	{
+		$.ajax({
+			url: 'gen_id',
+			cache: false,
+			success: function(html){
+			document.getElementById('Location_code').value = html;
+
+			}
+		});
+}
+</script>
+
+<style>
+   #inet {width: 300px; /* Ширина поля в пикселах */}
+   #Help{width: 300px; /* Ширина поля в пикселах */}
+   #Description{width: 300px; /* Ширина поля в пикселах */}
+</style>
+
+<script>
+(function($)
+{
+
+	$("#pointer_form").submit(function(event)
+	{
+		event.preventDefault(); //prevent default action
+		var post_url = $(this).attr("action"); //get form action url
+		var request_method = $(this).attr("method"); //get form GET/POST method
+		var form_data = new FormData(this); //Creates new FormData object
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data,
+			contentType: false,
+			cache: false,
+			processData:false
+		}).done(function(response)
+		{ //
+			$("#content").html(response);
+		});
+	});
+})(jQuery)
+</script>
+
+
+		<div id="page">
+			<div class="box-header">Создание поинтеров</div>
+			<div class="box tab-content" id="create_pointer">
+				<p>Укажите параметры поинтера: </p>
+				<div class="title">Поинтер</div>
+				<form  id="pointer_form"  action="game_pointers.php" method="POST"  enctype="multipart/form-data">
+					<table >
+						<tbody>
+							<tr>
+								<td style="text-align:right;">Идентиф. локации:</td>
+								<td><input name="Location_code" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td>
+							</tr>
+							<tr>
+								<td style="text-align:right;">Название локации:</td>
+								<td><input name="Location_name" id="Location_name" type="text" value="" spellcheck="true" autocomplete="off" required ></td>
+							</tr>
+							<tr>
+								<td style="text-align:right;">Latitude/Широта:</td>
+								<td><input name="Latitude" id="Latitude" type="text" value="" autocomplete="off" required ></td>
+							</tr>
+							<tr>
+								<td style="text-align:right;">Longitude/Долгота:</td>
+								<td><input name="Longitude" id="Longitude" type="text" value="" autocomplete="off" required ></td>
+							</tr>
+							<tr>
+								<td style="text-align:right;">Описание:</td>
+								<td><textarea  name="Description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></textarea></td>
+								<!--td><input name="Description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></td-->
+							</tr>
+							<tr>
+								<td style="text-align:right;">Подсказка:</td>
+								<td><textarea  name="Help" id="Help" spellcheck="true"  autocomplete="off" required ></textarea></td>
+								<!--td><input name="Help" id="Help" type="text" spellcheck="true"  autocomplete="off" required ></td-->
+							</tr>
+							<tr>
+								<td style="text-align:right;">Доступность сети интернет:</td>
+								<td size ="10">
+										<select id="inet" name ="inet">
+											<option value="LTE">LTE</option>
+											<option value="3G">3G</option>
+											<option value="Так себе">Так себе</option>
+											<option value="Бункер/Пустыня">Бункер/Пустыня</option>
+									   </select>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="file" multiple accept="image/jpeg, image/png" name="my_file[]" required><br/>Можно выбрать несколько файлов за раз</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input name="submit" class="button" type="submit" value="Save" required ></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
