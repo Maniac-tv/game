@@ -50,39 +50,39 @@
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры поинтера: </p>
 				<div class="title">Поинтер</div>
-				<form  id="pointer_form"  action="game_pointers.php" method="POST"  enctype="multipart/form-data">
+				<form  id="pointer_form"  action="game_pointers" method="POST" enctype="multipart/form-data">{% csrf_token %}
 					<table >
 						<tbody>
 							<tr>
 								<td style="text-align:right;">Идентиф. локации:</td>
-								<td><input name="Location_code" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td>
+								<td><input name="pointer_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td>
 							</tr>
 							<tr>
 								<td style="text-align:right;">Название локации:</td>
-								<td><input name="Location_name" id="Location_name" type="text" value="" spellcheck="true" autocomplete="off" required ></td>
+								<td><input name="name_location" id="Location_name" type="text" value="" spellcheck="true" autocomplete="off" required ></td>
 							</tr>
 							<tr>
 								<td style="text-align:right;">Latitude/Широта:</td>
-								<td><input name="Latitude" id="Latitude" type="text" value="" autocomplete="off" required ></td>
+								<td><input name="lat" id="Latitude" type="text" value="" autocomplete="off" required ></td>
 							</tr>
 							<tr>
 								<td style="text-align:right;">Longitude/Долгота:</td>
-								<td><input name="Longitude" id="Longitude" type="text" value="" autocomplete="off" required ></td>
+								<td><input name="lang" id="Longitude" type="text" value="" autocomplete="off" required ></td>
 							</tr>
 							<tr>
 								<td style="text-align:right;">Описание:</td>
-								<td><textarea  name="Description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></textarea></td>
+								<td><textarea  name="description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></textarea></td>
 								<!--td><input name="Description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></td-->
 							</tr>
 							<tr>
 								<td style="text-align:right;">Подсказка:</td>
-								<td><textarea  name="Help" id="Help" spellcheck="true"  autocomplete="off" required ></textarea></td>
+								<td><textarea  name="help" id="help" spellcheck="true"  autocomplete="off" required ></textarea></td>
 								<!--td><input name="Help" id="Help" type="text" spellcheck="true"  autocomplete="off" required ></td-->
 							</tr>
 							<tr>
 								<td style="text-align:right;">Доступность сети интернет:</td>
 								<td size ="10">
-										<select id="inet" name ="inet">
+										<select id="area" name ="area">
 											<option value="LTE">LTE</option>
 											<option value="3G">3G</option>
 											<option value="Так себе">Так себе</option>
@@ -92,13 +92,12 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><input type="file" multiple accept="image/jpeg, image/png" name="my_file[]" required><br/>Можно выбрать несколько файлов за раз</td>
+								<td><input type="file" multiple accept="image/jpeg, image/png" name="my_file"><br/>Можно выбрать несколько файлов за раз</td>
 							</tr>
 							<tr>
 								<td></td>
 								<td><input name="submit" class="button" type="submit" value="Save" required ></td>
 							</tr>
-
 						</tbody>
 					</table>
 				</form>

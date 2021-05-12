@@ -24,5 +24,7 @@ urlpatterns = [
     path('', views.index),
     path('create_pointers', views.create_pointers),
     path('gen_id', views.gen_code),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('game_pointers', views.game_pointers)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
