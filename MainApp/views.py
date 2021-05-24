@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 import random
 from MainApp.models import Form
 import os
@@ -16,8 +16,7 @@ def create_pointers(request):#Страница создания поинтера
 
 def pointers_list(request):#Список поинтеров
     f = Form.objects.all()
-    Form.objects.
-    context = {"items":f}
+    context = {"items": f}
 
     return render(request, 'pointer_form.html',context)
 
@@ -41,9 +40,12 @@ def game_pointers(request):#Сохранение поинтера
         for elm in f:
             fs = FileSystemStorage()
             filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']),elm.name), elm)
-
-
     return HttpResponse(f'<script>alert(\'Создан поинтер {request.POST["pointer_id"]} с названием {request.POST["name_location"]}\')</script>')
+
+def delete_pointer(request,param):
+    f = Form.objects.get(pointer_id=param)
+    f.delete()
+    return redirect('pointers_list')
 
 
 
