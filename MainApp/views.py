@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 import random
+import shutil
 from MainApp.models import Form
 import os
 from mnc_game import settings
@@ -12,13 +13,16 @@ def index(request):#Базовая страница
     return render(request,'body.html')
 
 def create_pointers(request):#Страница создания поинтера
-    return render(request, 'create_pointers.html')
+    url = {"form_url" : "game_pointers"}
+    input_type = {"input":'<input name="pointer_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required >'}
+    context = {**url, **input_type}
+    return render(request, 'create_pointers.html', context)
 
 def pointers_list(request):#Список поинтеров
     f = Form.objects.all()
     context = {"items": f}
 
-    return render(request, 'pointer_form.html',context)
+    return render(request, 'pointer_form.html', context)
 
 def gen_code(request):#Генерация кода для поинтера
     out=''
@@ -30,7 +34,6 @@ def gen_code(request):#Генерация кода для поинтера
     return HttpResponse(out)
 
 def game_pointers(request):#Сохранение поинтера
-    print(request.POST['pointer_id'])
     item = Form(pointer_id=request.POST['pointer_id'], lat=request.POST['lat'], long=request.POST['long'], name_location=request.POST['name_location'], description=request.POST['description'], help=request.POST['help'], answer=request.POST['answer'], area=request.POST['area'])
     item.save()
     #Если есть файлы создаем папку с названием идентификатора и сохраняем туда
@@ -40,11 +43,13 @@ def game_pointers(request):#Сохранение поинтера
         for elm in f:
             fs = FileSystemStorage()
             filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']),elm.name), elm)
-    return HttpResponse(f'<script>alert(\'Создан поинтер {request.POST["pointer_id"]} с названием {request.POST["name_location"]}\')</script>')
+    return redirect('pointers_list')
+    #return HttpResponse(f'<script>alert(\'Создан поинтер {request.POST["pointer_id"]} с названием {request.POST["name_location"]}\')</script>')
 
 def delete_pointer(request,param):
     f = Form.objects.get(pointer_id=param)
     f.delete()
+    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, param), ignore_errors=True)
     return redirect('pointers_list')
 
 

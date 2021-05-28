@@ -50,12 +50,12 @@
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры поинтера: </p>
 				<div class="title">Поинтер</div>
-				<form  id="pointer_form"  action="game_pointers" method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<form  id="pointer_form" action="{{form_url}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
 					<table >
 						<tbody>
 							<tr>
 								<td style="text-align:right;">Идентиф. локации:</td>
-								<td><input name="pointer_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td>
+								<td>{{input | safe}}</td>
 							</tr>
 							<tr>
 								<td style="text-align:right;">Название локации:</td>
@@ -100,7 +100,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><input name="submit" class="button" type="submit" value="Save" required ></td>
+								<td><input name="submit" onclick="set_class('List_pointers')" class="button" type="submit" value="Save" required ></td>
 							</tr>
 						</tbody>
 					</table>
