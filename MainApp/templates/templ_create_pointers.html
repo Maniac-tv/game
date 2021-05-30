@@ -46,16 +46,23 @@
 
 
 		<div id="page">
+			{% block descr %}
 			<div class="box-header">Создание поинтеров</div>
+			{% endblock %}
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры поинтера: </p>
 				<div class="title">Поинтер</div>
-				<form  id="pointer_form" action="{{form_url}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+				{% block form_url %}
+				<form id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">
+				{% endblock %}
+					{% csrf_token %}
 					<table >
 						<tbody>
 							<tr>
 								<td style="text-align:right;">Идентиф. локации:</td>
-								<td>{{input | safe}}</td>
+								{% block identif %}
+
+								{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:right;">Название локации:</td>

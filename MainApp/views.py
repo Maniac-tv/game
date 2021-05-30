@@ -13,16 +13,12 @@ def index(request):#Базовая страница
     return render(request,'body.html')
 
 def create_pointers(request):#Страница создания поинтера
-    url = {"form_url" : "game_pointers"}
-    input_type = {"input":'<input name="pointer_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required >'}
-    context = {**url, **input_type}
-    return render(request, 'create_pointers.html', context)
+    return render(request, 'templ_create_pointers.html')
 
 def pointers_list(request):#Список поинтеров
     f = Form.objects.all()
     context = {"items": f}
-
-    return render(request, 'pointer_form.html', context)
+    return render(request, 'pointer_list.html', context)
 
 def gen_code(request):#Генерация кода для поинтера
     out=''
@@ -33,7 +29,7 @@ def gen_code(request):#Генерация кода для поинтера
     out = "mnc-"+out
     return HttpResponse(out)
 
-def game_pointers(request):#Сохранение поинтера
+def create_game_pointers(request):#Сохранение поинтера
     item = Form(pointer_id=request.POST['pointer_id'], lat=request.POST['lat'], long=request.POST['long'], name_location=request.POST['name_location'], description=request.POST['description'], help=request.POST['help'], answer=request.POST['answer'], area=request.POST['area'])
     item.save()
     #Если есть файлы создаем папку с названием идентификатора и сохраняем туда
@@ -44,13 +40,22 @@ def game_pointers(request):#Сохранение поинтера
             fs = FileSystemStorage()
             filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']),elm.name), elm)
     return redirect('pointers_list')
-    #return HttpResponse(f'<script>alert(\'Создан поинтер {request.POST["pointer_id"]} с названием {request.POST["name_location"]}\')</script>')
 
 def delete_pointer(request,param):
     f = Form.objects.get(pointer_id=param)
     f.delete()
     shutil.rmtree(os.path.join(settings.MEDIA_ROOT, param), ignore_errors=True)
     return redirect('pointers_list')
+
+def pointer_editor(request, param):
+    f = Form.objects.get(pointer_id=param)
+    context = {"Items" : f}
+    return render(request, 'pointer_editor.html', context)
+
+
+def game_pointer_edit_save(request):
+    return redirect('pointers_list')
+
 
 
 

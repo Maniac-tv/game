@@ -1,0 +1,13 @@
+{% extends 'templ_create_pointers.html' %}
+<body>
+    {%block descr%}
+    <div class="box-header">Редактирование поинтеров</div>
+    {%endblock%}
+    {% block form_url %}
+    <form id="pointer_form" action="game_pointer_edit_save" method="POST" enctype="multipart/form-data">
+    {% endblock %}
+    {% block identif%}
+        <td><input name="pointer_id" id="Location_code" type="text" disabled = 'True' value="{{Items.pointer_id}}" autocomplete="off" required ></td>
+    {% endblock %}
+
+</body>

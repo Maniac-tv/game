@@ -24,9 +24,11 @@ urlpatterns = [
     path('', views.index),
     path('create_pointers', views.create_pointers),
     path('gen_id', views.gen_code),
-    path('game_pointers', views.game_pointers),
+    path('game_pointers', views.create_game_pointers),
     path('pointers_list', views.pointers_list, name='pointers_list'),
-    path('delete_pointer/<str:param>',views.delete_pointer)
+    path('delete_pointer/<str:param>', views.delete_pointer),
+    path('game_pointer_edit_save', views.game_pointer_edit_save),
+    path('edit_pointer/<str:param>', views.pointer_editor)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
