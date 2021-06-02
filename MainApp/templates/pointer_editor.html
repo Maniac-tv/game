@@ -3,11 +3,36 @@
     {%block descr%}
     <div class="box-header">Редактирование поинтеров</div>
     {%endblock%}
+
     {% block form_url %}
     <form id="pointer_form" action="game_pointer_edit_save" method="POST" enctype="multipart/form-data">
     {% endblock %}
-    {% block identif%}
-        <td><input name="pointer_id" id="Location_code" type="text" disabled = 'True' value="{{Items.pointer_id}}" autocomplete="off" required ></td>
+
+    {% block identif %}
+        <td><input name="pointer_id" id="Location_code" type="text" readonly value="{{Items.pointer_id}}" autocomplete="off" required ></td>
     {% endblock %}
 
+    {% block location_name %}
+        <td><input name="name_location" id="Location_name" type="text" value="{{Items.name_location}}" spellcheck="true" autocomplete="off" required ></td>
+    {% endblock %}
+
+    {% block latitude %}
+        <td><input name="lat" id="Latitude" type="text" value="{{Items.lat}}" autocomplete="off" required ></td>
+	{% endblock %}
+
+    {% block longitude %}
+        <td><input name="long" id="Longitude" type="text" value="{{Items.long}}" autocomplete="off" required ></td>
+	{% endblock %}
+
+    {% block description %}
+		<td><textarea  name="description" id="Description" type="text" spellcheck="true"  autocomplete="off" required >{{Items.description}}</textarea></td>
+	{% endblock %}
+
+    {% block help %}
+        <td><textarea  name="help" id="help" spellcheck="true"  autocomplete="off" required >{{Items.help}}</textarea></td>
+	{% endblock %}
+
+    {% block answer %}
+		<td><input name="answer" id="answer" type="text" value="{{Items.answer}}" autocomplete="off" required ></td>
+	{% endblock %}
 </body>

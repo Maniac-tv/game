@@ -41,6 +41,18 @@ def create_game_pointers(request):#Сохранение поинтера
             filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']),elm.name), elm)
     return redirect('pointers_list')
 
+def game_pointer_edit_save(request):
+    f = Form.objects.get(pointer_id=request.POST['pointer_id'])
+    f.lat = request.POST['lat']
+    f.long = request.POST['long']
+    f.name_location = request.POST['name_location']
+    f.description=request.POST['description']
+    f.help = request.POST['help']
+    f.answer = request.POST['answer']
+    f.area = request.POST['area']
+    f.save()
+    return redirect('pointers_list')
+
 def delete_pointer(request,param):
     f = Form.objects.get(pointer_id=param)
     f.delete()
@@ -52,9 +64,6 @@ def pointer_editor(request, param):
     context = {"Items" : f}
     return render(request, 'pointer_editor.html', context)
 
-
-def game_pointer_edit_save(request):
-    return redirect('pointers_list')
 
 
 

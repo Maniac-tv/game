@@ -46,14 +46,12 @@
 
 
 		<div id="page">
-			{% block descr %}
 			<div class="box-header">Создание поинтеров</div>
-			{% endblock %}
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры поинтера: </p>
 				<div class="title">Поинтер</div>
 				{% block form_url %}
-				<form id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">
+				<form  id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">
 				{% endblock %}
 					{% csrf_token %}
 					<table >
@@ -61,44 +59,57 @@
 							<tr>
 								<td style="text-align:right;">Идентиф. локации:</td>
 								{% block identif %}
-
+								<td><input name="pointer_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td>
 								{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:right;">Название локации:</td>
+								{% block location_name %}
 								<td><input name="name_location" id="Location_name" type="text" value="" spellcheck="true" autocomplete="off" required ></td>
+								{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:right;">Latitude/Широта:</td>
+								{% block latitude %}
 								<td><input name="lat" id="Latitude" type="text" value="" autocomplete="off" required ></td>
+								{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:right;">Longitude/Долгота:</td>
+								{% block longitude %}
 								<td><input name="long" id="Longitude" type="text" value="" autocomplete="off" required ></td>
+								{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:right;">Описание:</td>
+								{% block description %}
 								<td><textarea  name="description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></textarea></td>
-
+								{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:right;">Подсказка:</td>
+								{% block help %}
 								<td><textarea  name="help" id="help" spellcheck="true"  autocomplete="off" required ></textarea></td>
+								{% endblock %}
 								<!--td><input name="Help" id="Help" type="text" spellcheck="true"  autocomplete="off" required ></td-->
 							</tr>
 							<tr>
 								<td style="text-align:right;">Ответ:</td>
+								{% block answer %}
 								<td><input name="answer" id="answer" type="text" value="" autocomplete="off" required ></td>
+								{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:right;">Доступность сети интернет:</td>
 								<td size ="10">
-										<select id="inet" name ="area">
+									{% block area %}
+										<select id="inet" name ="area" required >
 											<option value="LTE">LTE</option>
 											<option value="3G">3G</option>
 											<option value="Так себе">Так себе</option>
-											<option value="Бункер/Пустыня">Бункер/Пустыня</option>
+											<option selected value="Бункер/Пустыня">Бункер/Пустыня</option>
 									   </select>
+									{% endblock %}
 								</td>
 							</tr>
 							<tr>
