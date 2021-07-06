@@ -12,7 +12,25 @@
 		});
 }
 </script>
+<style>
+.no_st {
+    margin : initial;
+	padding : initial;
+	#border : 0;
+	font-weight : initial;
+	font-style : initial;
+	font-size : initial;
+	font-family : initial;
+	vertical-align : initial;
+	color : initial;
+	width : 30%;
+	background : #eaeaea;
+	border-collapse : initial;
+	border-spacing : 0;
+	font : 12px/18px Arial, Helvetica Neue, Helvetica, sans-serif;;
+}
 
+</style>
 <style>
    #inet {width: 300px; /* Ширина поля в пикселах */}
    #Help{width: 300px; /* Ширина поля в пикселах */}
@@ -112,6 +130,22 @@
 									{% endblock %}
 								</td>
 							</tr>
+
+								{% for elm in Files %}
+									<tr>
+									<td style="text-align:right;"></td>
+									<td>
+									{{elm}}
+									<a onclick="get('delete_pointer/{{item.pointer_id}}','#content')" href="#" title="Удалить конкретно">
+									<svg xmlns="http://www.w3.org/2000/svg" color = "Red" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+									  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+									</svg>
+									</a>
+									</td>
+								{% endfor %}
+
+							</tr>
+
 							<tr>
 								<td></td>
 								<td><input type="file" multiple accept="image/jpeg, image/png" name="my_file"><br/>Можно выбрать несколько файлов за раз</td>

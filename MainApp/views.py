@@ -10,7 +10,7 @@ from MainApp.models import Form
 # Create your views here.
 
 def index(request):#Базовая страница
-    return render(request,'body.html')
+    return render(request, 'body.html')
 
 def create_pointers(request):#Страница создания поинтера
     return render(request, 'templ_create_pointers.html')
@@ -21,12 +21,18 @@ def pointers_list(request):#Список поинтеров
     return render(request, 'pointer_list.html', context)
 
 def gen_code(request):#Генерация кода для поинтера
-    out=''
-    s= "2345789zsxecvumk"
-    for i in range(0,11):
-        iout = random.randrange(0,len(s))
-        out = out + s[iout]
-    out = "mnc-"+out
+    out = ''
+    s= "2345789zsxecvumk" #2345789zsxecvumk
+    c=1
+    #c = Form.objects.filter(pointer_id=out).count()
+    while(c == 1):
+        out=''
+        for i in range(0, 11):
+            iout = random.randrange(0, len(s))
+            out = out + s[iout]
+        #print(out)
+        out = "mnc-" + out
+        c = Form.objects.filter(pointer_id=out).count()
     return HttpResponse(out)
 
 def create_game_pointers(request):#Сохранение поинтера
@@ -38,7 +44,7 @@ def create_game_pointers(request):#Сохранение поинтера
         f = request.FILES.getlist('my_file')
         for elm in f:
             fs = FileSystemStorage()
-            filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']),elm.name), elm)
+            filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']), elm.name), elm)
     return redirect('pointers_list')
 
 def game_pointer_edit_save(request):
@@ -61,10 +67,16 @@ def delete_pointer(request,param):
 
 def pointer_editor(request, param):
     f = Form.objects.get(pointer_id=param)
-    context = {"Items" : f}
+    fl = file_list(os.path.join(settings.MEDIA_ROOT, param))
+    #print(f.__doc__)
+    context = {"Items" : f,"Files":fl}
+    print(context)
     return render(request, 'pointer_editor.html', context)
 
-
-
+def file_list(path):
+    if os.path.exists(path):
+        files = os.listdir(path)
+    #print(files)
+        return files
 
 
