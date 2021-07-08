@@ -47,7 +47,7 @@ def create_game_pointers(request):#Сохранение поинтера
             filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']), elm.name), elm)
     return redirect('pointers_list')
 
-def game_pointer_edit_save(request):
+def game_pointer_edit_save(request):# Запрос на сохранение отредактированного поинтера
     f = Form.objects.get(pointer_id=request.POST['pointer_id'])
     f.lat = request.POST['lat']
     f.long = request.POST['long']
@@ -63,14 +63,14 @@ def game_pointer_edit_save(request):
         filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']), elm.name), elm)
     return redirect('pointers_list')
 
-def delete_pointer(request,param):
+def delete_pointer(request,param):# Удаление поинтера конкретно вместе с файлами и папками
     f = Form.objects.get(pointer_id=param)
     f.delete()
     shutil.rmtree(os.path.join(settings.MEDIA_ROOT, param), ignore_errors=True)
     print(os.path.join(settings.MEDIA_ROOT, param))
     return redirect('pointers_list')
 
-def pointer_editor(request, param):
+def pointer_editor(request, param):#Форма для редактирования поинтера
     f = Form.objects.get(pointer_id=param)
     fl = file_list(os.path.join(settings.MEDIA_ROOT, param))
     #print(f.__doc__)
@@ -78,15 +78,15 @@ def pointer_editor(request, param):
     #print(context)
     return render(request, 'pointer_editor.html', context)
 
-def file_list(path):
+def file_list(path):#Возвращает список файлов
     if os.path.exists(path):
         files = os.listdir(path)
     #print(files)
         return files
 
-def delete_files_pointer(request,param):
+def delete_files_pointer(request,param):# Удаление файлов поинтера по одному из формы редактирования поинтера, и возврат оставшихся файлов
     s2=''
-    param = param.replace('|','/')
+    param = param.replace('|', '/')
     os.remove(os.path.join(settings.MEDIA_ROOT, param))
     #print(os.path.join(settings.MEDIA_ROOT, param))
     id_p = param.split('/')[0] # Получаем идентификатор поинтера
