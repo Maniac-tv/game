@@ -57,12 +57,17 @@ def game_pointer_edit_save(request):
     f.answer = request.POST['answer']
     f.area = request.POST['area']
     f.save()
+    f = request.FILES.getlist('my_file')
+    for elm in f:
+        fs = FileSystemStorage()
+        filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']), elm.name), elm)
     return redirect('pointers_list')
 
 def delete_pointer(request,param):
     f = Form.objects.get(pointer_id=param)
     f.delete()
     shutil.rmtree(os.path.join(settings.MEDIA_ROOT, param), ignore_errors=True)
+    print(os.path.join(settings.MEDIA_ROOT, param))
     return redirect('pointers_list')
 
 def pointer_editor(request, param):
@@ -70,7 +75,7 @@ def pointer_editor(request, param):
     fl = file_list(os.path.join(settings.MEDIA_ROOT, param))
     #print(f.__doc__)
     context = {"Items" : f,"Files":fl}
-    print(context)
+    #print(context)
     return render(request, 'pointer_editor.html', context)
 
 def file_list(path):
@@ -78,5 +83,22 @@ def file_list(path):
         files = os.listdir(path)
     #print(files)
         return files
+
+def delete_files_pointer(request,param):
+    s2=''
+    param = param.replace('|','/')
+    os.remove(os.path.join(settings.MEDIA_ROOT, param))
+    #print(os.path.join(settings.MEDIA_ROOT, param))
+    id_p = param.split('/')[0] # Получаем идентификатор поинтера
+    #print('id_p=',id_p)
+    t = file_list(os.path.join(settings.MEDIA_ROOT, id_p)) #Получаем список оставшихся файлов в папке поинтера
+    #print(t)
+    #Формируем ответ из списка файлов
+    for elm in t:
+        s = '''<tr><td style="text-align:right;"></td><td>'''+elm+'''<a onclick="get('delete_files_pointer/'''+id_p+'''|'''+elm+'''','#files')" href="#" title="Удалить конкретно"><svg xmlns="http://www.w3.org/2000/svg" color = "Red" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></a></td> </tr>'''
+        s2 = s2 + s
+    return HttpResponse(s2)
+
+
 
 
