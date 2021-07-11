@@ -36,7 +36,12 @@
 		<td><input name="answer" id="answer" type="text" value="{{Items.answer}}" autocomplete="off" required ></td>
 	{% endblock %}
 
+    {% block area %}
+        {{Area | safe}}
+    {% endblock %}
+
     {% block files %}
+
         <tbody id="files">
         {% for elm in Files %}
             <tr>

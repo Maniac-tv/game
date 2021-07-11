@@ -120,14 +120,16 @@
 							<tr>
 								<td style="text-align:right;">Доступность сети интернет:</td>
 								<td size ="10">
+									<select id="inet" name ="area" required >
 									{% block area %}
-										<select id="inet" name ="area" required >
+
 											<option value="LTE">LTE</option>
 											<option value="3G">3G</option>
 											<option value="Так себе">Так себе</option>
 											<option selected value="Бункер/Пустыня">Бункер/Пустыня</option>
-									   </select>
+
 									{% endblock %}
+									</select>
 								</td>
 							</tr>
 								{% block files%}

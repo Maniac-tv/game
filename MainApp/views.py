@@ -71,10 +71,22 @@ def delete_pointer(request,param):# Удаление поинтера конкр
     return redirect('pointers_list')
 
 def pointer_editor(request, param):#Форма для редактирования поинтера
+    i_list = list()
+    i_list.append('LTE')
+    i_list.append('3G')
+    i_list.append('Так себе')
+    i_list.append('Бункер/Пустыня')
     f = Form.objects.get(pointer_id=param)
+    area_list=''
+    for elm in i_list:
+        if elm == f.area:
+            area_list = area_list + f'<option selected value="{elm}">{elm}</option>'
+        else:
+            area_list = area_list + f'<option value="{elm}">{elm}</option>'
+
     fl = file_list(os.path.join(settings.MEDIA_ROOT, param))
     #print(f.__doc__)
-    context = {"Items" : f,"Files":fl}
+    context = {"Items" : f,"Files":fl, 'Area':area_list}
     #print(context)
     return render(request, 'pointer_editor.html', context)
 
