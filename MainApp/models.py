@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 
 class Form (models.Model):
     pointer_id = models.TextField(max_length=20, db_index=True)
@@ -11,5 +12,5 @@ class Form (models.Model):
     answer = models.TextField(max_length=255)
     area = models.TextField(max_length=20)
     create_time = models.DateTimeField(auto_now_add=True)
-
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
 # Create your models here.

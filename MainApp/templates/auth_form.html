@@ -1,0 +1,11 @@
+{% block descr %}{% endblock %}
+<br/><br/><br/><br/><br/>
+<center>
+	<form method="post" action="login">{% csrf_token %}
+		<label for="username">username: </label>
+		<input name="username"  type="text">
+		<label for="password">password: </label>
+		<input name="password"  type="password">
+		<button type="submit">login</button>
+	</form>
+</center>

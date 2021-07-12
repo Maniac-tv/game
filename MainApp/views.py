@@ -6,8 +6,27 @@ import os
 from mnc_game import settings
 from django.core.files.storage import FileSystemStorage
 from MainApp.models import Form
+from django.contrib import auth
 
 # Create your views here.
+def login_page(request):
+   if request.method == 'POST':
+       username = request.POST.get("username")
+       password = request.POST.get("password")
+       print("username =", username)
+       print("password =", password)
+       User = auth.authenticate(request, username=username, password=password)
+       if User is not None:
+           auth.login(request, User)
+           return redirect('/')
+       else:
+           # Return error message
+           return HttpResponse('The hui!')
+   #return render(request, '/')
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'body.html')
 
 def index(request):#Базовая страница
     return render(request, 'body.html')
@@ -56,6 +75,7 @@ def game_pointer_edit_save(request):# Запрос на сохранение о�
     f.help = request.POST['help']
     f.answer = request.POST['answer']
     f.area = request.POST['area']
+    f.user = request.user
     f.save()
     f = request.FILES.getlist('my_file')
     for elm in f:

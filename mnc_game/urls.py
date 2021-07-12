@@ -18,10 +18,14 @@ from django.urls import path
 from MainApp import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import auth
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
+    path('', views.index, name='base'),
+    path('login', views.login_page),
+    path('out',views.logout),
     path('create_pointers', views.create_pointers),
     path('gen_id', views.gen_code),
     path('game_pointers', views.create_game_pointers),
