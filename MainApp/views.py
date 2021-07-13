@@ -7,6 +7,7 @@ from mnc_game import settings
 from django.core.files.storage import FileSystemStorage
 from MainApp.models import Form
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def login_page(request):
@@ -21,12 +22,13 @@ def login_page(request):
            return redirect('/')
        else:
            # Return error message
-           return HttpResponse('The hui!')
+           s = '<center>The hui!<br/><img src="static/imgs/haiz.jpg" height="800" wedth="1100"></center>'
+           return HttpResponse(s)
    #return render(request, '/')
 
 def logout(request):
     auth.logout(request)
-    return render(request, 'body.html')
+    return index(request) #render(request, 'body.html')
 
 def index(request):#Базовая страница
     return render(request, 'body.html')
@@ -34,15 +36,18 @@ def index(request):#Базовая страница
 def create_pointers(request):#Страница создания поинтера
     return render(request, 'templ_create_pointers.html')
 
+def create_game(request):#Страница создания поинтера
+    return render(request, 'templ_create_game.html')
+
 def pointers_list(request):#Список поинтеров
-    f = Form.objects.all()
+    f = Form.objects.filter(user=request.user)
     context = {"items": f}
     return render(request, 'pointer_list.html', context)
 
 def gen_code(request):#Генерация кода для поинтера
     out = ''
-    s= "2345789zsxecvumk" #2345789zsxecvumk
-    c=1
+    s = "2345789zsxecvumk" #2345789zsxecvumk
+    c =1
     #c = Form.objects.filter(pointer_id=out).count()
     while(c == 1):
         out=''
@@ -54,8 +59,9 @@ def gen_code(request):#Генерация кода для поинтера
         c = Form.objects.filter(pointer_id=out).count()
     return HttpResponse(out)
 
+@login_required
 def create_game_pointers(request):#Сохранение поинтера
-    item = Form(pointer_id=request.POST['pointer_id'], lat=request.POST['lat'], long=request.POST['long'], name_location=request.POST['name_location'], description=request.POST['description'], help=request.POST['help'], answer=request.POST['answer'], area=request.POST['area'])
+    item = Form(pointer_id=request.POST['pointer_id'], lat=request.POST['lat'], long=request.POST['long'], name_location=request.POST['name_location'], description=request.POST['description'], help=request.POST['help'], answer=request.POST['answer'], area=request.POST['area'], user=request.user)
     item.save()
     #Если есть файлы создаем папку с названием идентификатора и сохраняем туда
     if 'my_file' in request.FILES:
@@ -66,6 +72,7 @@ def create_game_pointers(request):#Сохранение поинтера
             filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']), elm.name), elm)
     return redirect('pointers_list')
 
+@login_required
 def game_pointer_edit_save(request):# Запрос на сохранение отредактированного поинтера
     f = Form.objects.get(pointer_id=request.POST['pointer_id'])
     f.lat = request.POST['lat']
@@ -90,6 +97,7 @@ def delete_pointer(request,param):# Удаление поинтера конкр
     print(os.path.join(settings.MEDIA_ROOT, param))
     return redirect('pointers_list')
 
+@login_required
 def pointer_editor(request, param):#Форма для редактирования поинтера
     i_list = list()
     i_list.append('LTE')
