@@ -26,7 +26,8 @@ def login_page(request):
            return HttpResponse(s)
    #return render(request, '/')
 
-def logout(request):
+
+def logout(request):#Логаут ясен буй
     auth.logout(request)
     return index(request) #render(request, 'body.html')
 
@@ -36,8 +37,16 @@ def index(request):#Базовая страница
 def create_pointers(request):#Страница создания поинтера
     return render(request, 'templ_create_pointers.html')
 
-def create_game(request):#Страница создания поинтера
-    return render(request, 'templ_create_game.html')
+def creategame(request):#Страница создания игры
+    #print('game')
+    l=list()
+    f = Form.objects.filter(user=request.user).values('name_location')
+    for elm in f:
+        l.append(elm['name_location'])
+    context = {"Items": str(l).replace("'",'"')}
+    print(context)
+
+    return render(request, 'templ_create_game.html', context)
 
 def pointers_list(request):#Список поинтеров
     f = Form.objects.filter(user=request.user)

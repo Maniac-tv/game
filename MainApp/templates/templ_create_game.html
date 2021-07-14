@@ -1,4 +1,6 @@
 {% load static %}
+<head><meta charset="utf-8"></head>
+
 <script>
 	function getcode()
 	{
@@ -30,6 +32,49 @@
 	font : 12px/18px Arial, Helvetica Neue, Helvetica, sans-serif;;
 }
 
+.no_st_button {
+    cursor : initial;
+	display : initial-block;
+	font : 14px/100% Arial, Helvetica, sans-serif;
+	font-weight : initial;
+	margin : initial;
+	outline : initial;
+	padding : initial;
+	width : auto;
+	text-align : center;
+	text-decoration : none;
+	vertical-align : initial;
+	background : #97d139 url('imgs/button_bg.png') repeat-x top;
+	color : #fff;
+	border : 1px solid rgba(0, 0, 0, 0.25);
+	-moz-box-shadow : 0 1px 3px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow : 0 1px 3px rgba(0, 0, 0, 0.4);
+	text-shadow : 0 -1px 1px rgba(0, 0, 0, 0.25);
+	-moz-border-radius : 5px;
+	-webkit-border-radius : 5px;
+}
+
+.no_st_button_red {
+    cursor : initial;
+	display : initial-block;
+	font : 14px/100% Arial, Helvetica, sans-serif;
+	font-weight : initial;
+	margin : initial;
+	outline : initial;
+	padding : initial;
+	width : auto;
+	text-align : center;
+	text-decoration : none;
+	vertical-align : initial;
+	background : Red url('imgs/button_bg.png') repeat-x top;
+	color : #fff;
+	border : 1px solid rgba(0, 0, 0, 0.25);
+	-moz-box-shadow : 0 1px 3px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow : 0 1px 3px rgba(0, 0, 0, 0.4);
+	text-shadow : 0 -1px 1px rgba(0, 0, 0, 0.25);
+	-moz-border-radius : 5px;
+	-webkit-border-radius : 5px;
+}
 </style>
 <style>
    #inet {width: 300px; /* Ширина поля в пикселах */}
@@ -62,41 +107,60 @@
 })(jQuery)
 </script>
 <script>
-var i = 1;
+function del(id){
+	alert(id);
+	el = document.getElementById(id);
+	el.remove();
+}
+var i = 0;
 
 function changeIt() {
-    var tr = document.createElement('tr');
-    var td = tr.appendChild(document.createElement('td'));
-    td.style.valign = 'middle';
+	var sel = document.createElement('select');
+	sel.name = 'area';
+	sel.id = 'inet';
 
-    var span = td.appendChild(document.createElement('span'));
-    span.style.fontWeight = 'bold';
-    span.appendChild(document.createTextNode('URL ' + i));
+	var items = {{Items | safe}};
+	var options_str = "";
+
+	items.forEach( function(car) {options_str += '<option value="' + car + '">' + car + '</option>';});
+	sel.innerHTML = options_str;
+
+	var tr = document.createElement('tr');
+	tr.id= "t" + ++i;
+    var td = tr.appendChild(document.createElement('td'));
+	var input = td.appendChild(sel);
+
+	var button = document.createElement('input');
+	button.id= i;
+	button.type = 'button';
+	button.value = "-";
+
 
     td = tr.appendChild(document.createElement('td'));
-    var input = td.appendChild(document.createElement('input'));
-    input.name = 'url' + ++i;
-    input.type = 'text';
-    input.size = '40'
+	var input2 = td.appendChild(button);
+	input2.classList.add("no_st_button_red");
 
-    document.getElementById('myTable').tBodies[0].appendChild(tr);
+	button.onclick = ('onclick', function(){ document.getElementById(tr.id).remove() });
+
+    document.getElementById('game_table').tBodies[0].appendChild(tr);
+
+
 
 }
 </script>
 
-		<div id="page">
+		<div id="page" >
 			<div class="box-header">Создание игры</div>
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры игры: </p>
-				<div class="title">Поинтер</div>
+				<div class="title">Игра</div>
 				<form  id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<table id="game_table">
+					<table id="game_table" class="no_st">
 						<tbody>
-							<tr>
-								<td style="text-align:right;">Идентиф. локации:</td>
-							</tr>
+
 						</tbody>
 					</table>
 				</form>
+				<input class="no_st_button" type="button" onclick="changeIt();" value="+">
 			</div>
 		</div>

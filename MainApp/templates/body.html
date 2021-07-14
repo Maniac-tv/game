@@ -1,6 +1,7 @@
 {% if request.user.is_authenticated %}
 {% load static %}
 <head>
+		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel='stylesheet' href="{% static 'style.css' %}" type='text/css' />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -37,7 +38,7 @@
 					<li id="List_pointers" onclick="set_class('List_pointers')"><a href="#" onclick="get('pointers_list','#content')">Список мест</a></li>
 					<li id="List_games" onclick="set_class('List_games')"><a href="#">Список игр</a></li>
 					<li id="C_pointers" onclick="set_class('C_pointers')"><a href="#" onclick="get('create_pointers','#content')">Создать место</a></li>
-					<li id="C_game" onclick="set_class('C_game')"><a href="#" onclick="get('create_game,'#content')">Создать игру</a></li>
+					<li id="C_game" onclick="set_class('C_game')"><a href="#" onclick="get('creategame','#content')">Создать игру</a></li>
 					<li id="logout" class="current"><a href="out">Выход</a></li>
 				</ul>
 			<div id="content"></div>
