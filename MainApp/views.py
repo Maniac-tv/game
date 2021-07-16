@@ -37,14 +37,15 @@ def index(request):#Базовая страница
 def create_pointers(request):#Страница создания поинтера
     return render(request, 'templ_create_pointers.html')
 
-def creategame(request):#Страница создания игры
+@login_required
+def creategame_form(request):#Страница создания игры
     #print('game')
-    l=list()
+    l = list()
     f = Form.objects.filter(user=request.user).values('name_location')
     for elm in f:
         l.append(elm['name_location'])
     context = {"Items": str(l).replace("'",'"')}
-    print(context)
+    #print(context)
 
     return render(request, 'templ_create_game.html', context)
 
@@ -53,6 +54,7 @@ def pointers_list(request):#Список поинтеров
     context = {"items": f}
     return render(request, 'pointer_list.html', context)
 
+@login_required
 def gen_code(request):#Генерация кода для поинтера
     out = ''
     s = "2345789zsxecvumk" #2345789zsxecvumk

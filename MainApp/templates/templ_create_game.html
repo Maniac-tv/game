@@ -118,6 +118,7 @@ function changeIt() {
 	var sel = document.createElement('select');
 	sel.name = 'area';
 	sel.id = 'inet';
+	sel.class = 'no_st';
 
 	var items = {{Items | safe}};
 	var options_str = "";
@@ -128,6 +129,7 @@ function changeIt() {
 	var tr = document.createElement('tr');
 	tr.id= "t" + ++i;
     var td = tr.appendChild(document.createElement('td'));
+    td.style = "text-align:right;";
 	var input = td.appendChild(sel);
 
 	var button = document.createElement('input');
@@ -147,6 +149,12 @@ function changeIt() {
 
 
 }
+
+function check_for_repeat()
+{
+	elm = document.getElementById('game_table').rows.length;
+	alert(elm);
+}
 </script>
 
 		<div id="page" >
@@ -155,12 +163,15 @@ function changeIt() {
 				<p>Укажите параметры игры: </p>
 				<div class="title">Игра</div>
 				<form  id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<table id="game_table" class="no_st">
+					<table id="game_table" >
 						<tbody>
+							<tr><td style="text-align:right;">Идентификатор игры</td><td><input name="pointer_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td></tr>
+
+							<tr><td style="text-align:right;">Название игры</td><td><input name="pointer_id" id="" type="text" value=""  autocomplete="off" required ></td></tr>
 
 						</tbody>
 					</table>
 				</form>
-				<input class="no_st_button" type="button" onclick="changeIt();" value="+">
+				<input class="no_st_button" type="button" onclick="changeIt();" value="+"> <input class="no_st_button" type="button" onclick="check_for_repeat();" value="+">
 			</div>
 		</div>
