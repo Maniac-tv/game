@@ -46,8 +46,11 @@ def creategame_form(request):#Страница создания игры
         l.append(elm['name_location'])
     context = {"Items": str(l).replace("'",'"')}
     #print(context)
-
     return render(request, 'templ_create_game.html', context)
+
+def creategame_params(request):#Страница создания игры
+    print(request.POST)
+    return 0
 
 def pointers_list(request):#Список поинтеров
     f = Form.objects.filter(user=request.user)

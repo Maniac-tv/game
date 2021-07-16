@@ -118,7 +118,7 @@ function changeIt() {
 	var sel = document.createElement('select');
 	sel.name = 'area';
 	sel.id = 'inet';
-	sel.class = 'no_st';
+	sel.style="max-width:65%;";
 
 	var items = {{Items | safe}};
 	var options_str = "";
@@ -128,9 +128,13 @@ function changeIt() {
 
 	var tr = document.createElement('tr');
 	tr.id= "t" + ++i;
-    var td = tr.appendChild(document.createElement('td'));
-    td.style = "text-align:right;";
-	var input = td.appendChild(sel);
+
+	var td = tr.appendChild(document.createElement('td'));
+	var text = document.createTextNode("Поинтер:");
+	td.appendChild(text);
+
+    var td1 = tr.appendChild(document.createElement('td'));
+	var input = td1.appendChild(sel);
 
 	var button = document.createElement('input');
 	button.id= i;
@@ -138,8 +142,8 @@ function changeIt() {
 	button.value = "-";
 
 
-    td = tr.appendChild(document.createElement('td'));
-	var input2 = td.appendChild(button);
+    td2 = tr.appendChild(document.createElement('td'));
+	var input2 = td2.appendChild(button);
 	input2.classList.add("no_st_button_red");
 
 	button.onclick = ('onclick', function(){ document.getElementById(tr.id).remove() });
@@ -162,16 +166,29 @@ function check_for_repeat()
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры игры: </p>
 				<div class="title">Игра</div>
-				<form  id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<table id="game_table" >
+				<form  id="pointer_form" action="creategame_params" method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<table id="game_table" class="no_st">
 						<tbody>
-							<tr><td style="text-align:right;">Идентификатор игры</td><td><input name="pointer_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td></tr>
+							<tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td><td></td></tr>
 
-							<tr><td style="text-align:right;">Название игры</td><td><input name="pointer_id" id="" type="text" value=""  autocomplete="off" required ></td></tr>
-
+							<tr><td >Название игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_name" id="" type="text" value=""  autocomplete="off" required ></td><td></td></tr>
+							<tr>
+								<td style="text-align:left;">Описание:</td>
+								{% block description %}
+								<td><textarea style="width: 300px;" name="description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></textarea></td><td></td>
+								{% endblock %}
+							</tr>
+							<tr>
+								<td style="text-align:left;">Инвентарь:</td>
+								{% block inventary %}
+								<td><textarea name="inventory" style="width: 300px;" id="Inventory" type="text" spellcheck="true"  autocomplete="off" ></textarea></td><td></td>
+								{% endblock %}
+							</tr>
 						</tbody>
 					</table>
+					<br/>
+					<input class="no_st_button" type="button" onclick="changeIt();" value="+"> <input class="no_st_button" type="submit" value="S">
 				</form>
-				<input class="no_st_button" type="button" onclick="changeIt();" value="+"> <input class="no_st_button" type="button" onclick="check_for_repeat();" value="+">
+
 			</div>
 		</div>

@@ -28,6 +28,7 @@ urlpatterns = [
     path('out',views.logout),
     path('create_pointers', views.create_pointers),
     path('creategame_form', views.creategame_form),
+    path('creategame_params', views.creategame_params),
     path('gen_id', views.gen_code),
     path('game_pointers', views.create_game_pointers),
     path('pointers_list', views.pointers_list, name='pointers_list'),
