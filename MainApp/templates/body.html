@@ -20,7 +20,7 @@
 			function set_class(id)
 			{
 				document.getElementById("List_pointers").classList.remove("current");
-				document.getElementById("List_games").classList.remove("current");
+				document.getElementById("games_list").classList.remove("current");
 				document.getElementById("C_pointers").classList.remove("current");
 				document.getElementById("C_game").classList.remove("current");
 				document.getElementById("logout").classList.remove("current");
@@ -36,7 +36,7 @@
 			<center>
 				<ul id="navigation">
 					<li id="List_pointers" onclick="set_class('List_pointers')"><a href="#" onclick="get('pointers_list','#content')">Список мест</a></li>
-					<li id="List_games" onclick="set_class('List_games')"><a href="#">Список игр</a></li>
+					<li id="games_list" onclick="set_class('games_list')"><a href="#" onclick="get('games_list','#content')">Список игр</a></li>
 					<li id="C_pointers" onclick="set_class('C_pointers')"><a href="#" onclick="get('create_pointers','#content')">Создать место</a></li>
 					<li id="C_game" onclick="set_class('C_game')"><a href="#" onclick="get('creategame_form','#content')">Создать игру</a></li>
 					<li id="logout" class="current"><a href="out">Выход</a></li>

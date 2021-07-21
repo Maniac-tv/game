@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 import random
-import shutil
-import os
 from mnc_game import settings
 from django.core.files.storage import FileSystemStorage
 from MainApp.models import Form, Game
@@ -60,12 +58,21 @@ def creategame_params(request):#Запрос с параметрами для с
     #Засовываем все в таблицу
     game = Game(game_id=request.POST['game_id'], game_name=request.POST['game_name'], description=request.POST['description'], inventory=request.POST['inventory'], pointers=s_p, user=request.user)
     game.save()
-    return redirect('pointers_list')
+    return redirect('games_list')
 
+def games_list(request):#Список поинтеров
+    f = Game.objects.filter(user=request.user)
+    context = {"items": f}
+    return render(request, 'games_list.html', context)
+
+def delete_game(request,param):# Удаление поинтера конкретно вместе с файлами и папками
+    f = Game.objects.get(game_id=param)
+    f.delete()
+    return redirect('games_list')
 
 
 @login_required
-def gen_code(request):#Генерация кода для поинтера
+def gen_code_game(request):#Генерация кода для поинтера
     out = ''
     s = "2345789zsxecvumk" #2345789zsxecvumk
     c =1
@@ -76,8 +83,8 @@ def gen_code(request):#Генерация кода для поинтера
             iout = random.randrange(0, len(s))
             out = out + s[iout]
         #print(out)
-        out = "mnc-" + out
-        c = Form.objects.filter(pointer_id=out).count()
+        out = "gme-" + out
+        c = Game.objects.filter(game_id=out).count()
     return HttpResponse(out)
 
 

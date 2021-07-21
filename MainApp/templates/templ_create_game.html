@@ -5,7 +5,7 @@
 	function getcode()
 	{
 		$.ajax({
-			url: 'gen_id',
+			url: 'gen_id_game',
 			cache: false,
 			success: function(html){
 			document.getElementById('game_id').value = html;
@@ -193,7 +193,7 @@ function check_for_repeat()
 						</tbody>
 					</table>
 					<br/>
-					<input class="no_st_button" type="button" onclick="changeIt();" value="+"> <input class="no_st_button" type="submit" value="S">
+					<input class="button" type="button" onclick="changeIt();" value="+"> <input class="button" type="submit" value="Save">
 				</form>
 
 			</div>

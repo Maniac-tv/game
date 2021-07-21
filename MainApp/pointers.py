@@ -52,7 +52,7 @@ def delete_pointer(request,param):# Удаление поинтера конкр
     f = Form.objects.get(pointer_id=param)
     f.delete()
     shutil.rmtree(os.path.join(settings.MEDIA_ROOT, param), ignore_errors=True)
-    print(os.path.join(settings.MEDIA_ROOT, param))
+    #print(os.path.join(settings.MEDIA_ROOT, param))
     return redirect('pointers_list')
 
 @login_required
