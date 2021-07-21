@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from MainApp import views
+from MainApp import pointers
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import auth
@@ -26,16 +27,16 @@ urlpatterns = [
     path('', views.index, name='base'),
     path('login', views.login_page),
     path('out',views.logout),
-    path('create_pointers', views.create_pointers),
+    path('create_pointers', pointers.create_pointers),
     path('creategame_form', views.creategame_form),
     path('creategame_params', views.creategame_params),
     path('gen_id', views.gen_code),
-    path('game_pointers', views.create_game_pointers),
-    path('pointers_list', views.pointers_list, name='pointers_list'),
-    path('delete_pointer/<str:param>', views.delete_pointer),
-    path('game_pointer_edit_save', views.game_pointer_edit_save),
-    path('edit_pointer/<str:param>', views.pointer_editor),
-    path('delete_files_pointer/<str:param>', views.delete_files_pointer)
+    path('game_pointers', pointers.create_game_pointers),
+    path('pointers_list', pointers.pointers_list, name='pointers_list'),
+    path('delete_pointer/<str:param>', pointers.delete_pointer),
+    path('game_pointer_edit_save', pointers.game_pointer_edit_save),
+    path('edit_pointer/<str:param>', pointers.pointer_editor),
+    path('delete_files_pointer/<str:param>', pointers.delete_files_pointer)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

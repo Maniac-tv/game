@@ -8,7 +8,7 @@
 			url: 'gen_id',
 			cache: false,
 			success: function(html){
-			document.getElementById('Location_code').value = html;
+			document.getElementById('game_id').value = html;
 
 			}
 		});
@@ -116,14 +116,20 @@ var i = 0;
 
 function changeIt() {
 	var sel = document.createElement('select');
-	sel.name = 'area';
-	sel.id = 'inet';
-	sel.style="max-width:65%;";
+	sel.name = 'pointer';
+	sel.id = '';
+	sel.style="max-width:300;";
 
-	var items = {{Items | safe}};
+	var item_name = {{Items | safe}};
+	var item_id = {{ids | safe}};
 	var options_str = "";
 
-	items.forEach( function(car) {options_str += '<option value="' + car + '">' + car + '</option>';});
+	//item_name.forEach( function(item_name) {options_str += '<option value="' + item_name + '">' + item_name + '</option>';});
+	for(ids=0; ids < item_id.length; ids++)
+	{
+		options_str += '<option value="' + item_id[ids] + '">' + item_name[ids] + '</option>';
+	}
+
 	sel.innerHTML = options_str;
 
 	var tr = document.createElement('tr');
@@ -169,9 +175,9 @@ function check_for_repeat()
 				<form  id="pointer_form" action="creategame_params" method="POST" enctype="multipart/form-data">{% csrf_token %}
 					<table id="game_table" class="no_st">
 						<tbody>
-							<tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="Location_code" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td><td></td></tr>
+							<tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="game_id" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td><td></td></tr>
 
-							<tr><td >Название игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_name" id="" type="text" value=""  autocomplete="off" required ></td><td></td></tr>
+							<tr><td >Название игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_name" id="game_name" type="text" value=""  autocomplete="off" required ></td><td></td></tr>
 							<tr>
 								<td style="text-align:left;">Описание:</td>
 								{% block description %}
