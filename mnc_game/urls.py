@@ -39,7 +39,9 @@ urlpatterns = [
     path('creategame_params', views.creategame_params),
     path('games_list', views.games_list, name='games_list'),
     path('gen_id_game', views.gen_code_game),
-    path('delete_game/<str:param>', views.delete_game)
+    path('delete_game/<str:param>', views.delete_game),
+    path('game_edit/<str:param>', views.game_edit),
+    path('gameeditor_save', views.gameeditor_save)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -13,6 +13,7 @@ class Form (models.Model):
     area = models.TextField(max_length=20)
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
+    invisible = models.BooleanField(default=False)
 
 class Game(models.Model):
     game_id = models.TextField(max_length=20, db_index=True)
@@ -22,4 +23,5 @@ class Game(models.Model):
     pointers = models.TextField(max_length=255)
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
+    invisible = models.BooleanField(default=False)
 # Create your models here.

@@ -12,7 +12,7 @@ def create_pointers(request):#Страница создания поинтера
 
 
 def pointers_list(request):#Список поинтеров
-    f = Form.objects.filter(user=request.user)
+    f = Form.objects.filter(user=request.user, invisible=False)
     context = {"items": f}
     return render(request, 'pointer_list.html', context)
 
@@ -50,7 +50,8 @@ def game_pointer_edit_save(request):# Запрос на сохранение о�
 
 def delete_pointer(request,param):# Удаление поинтера конкретно вместе с файлами и папками
     f = Form.objects.get(pointer_id=param)
-    f.delete()
+    f.invisible = True
+    f.save()
     shutil.rmtree(os.path.join(settings.MEDIA_ROOT, param), ignore_errors=True)
     #print(os.path.join(settings.MEDIA_ROOT, param))
     return redirect('pointers_list')

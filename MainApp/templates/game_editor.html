@@ -1,0 +1,31 @@
+{% extends 'templ_create_game.html' %}
+{% load static %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+{% block titles %}
+    <div class="box-header">Редактирование игры</div>
+{% endblock %}
+
+{% block game_id %}
+    <tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="game_id" type="text" value="{{game.game_id}}" readonly autocomplete="off" required ></td><td></td></tr>
+{% endblock %}
+
+{% block game_name %}
+    <tr><td >Название игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_name" id="game_name" type="text" value = "{{game.game_name}}"  autocomplete="off" required ></td><td></td></tr>
+{% endblock %}
+
+{% block description %}
+    <td><textarea name="description" style="width: 300px;" id="Description" type="text" spellcheck="true"  autocomplete="off" >{{game.description}}</textarea></td><td></td>
+{% endblock %}
+
+{% block inventory %}
+    <td><textarea name="inventory" style="width: 300px;" id="Inventory" type="text" spellcheck="true"  autocomplete="off" >{{game.inventory}}</textarea></td><td></td>
+{% endblock %}
+
+{% block pointers %}
+    {{pointers | safe}}
+{% endblock %}
+
+{% block url_form %}
+    <form  id="pointer_form" action="gameeditor_save" method="POST" enctype="multipart/form-data">
+{% endblock %}

@@ -147,7 +147,6 @@ function changeIt() {
 	button.type = 'button';
 	button.value = "-";
 
-
     td2 = tr.appendChild(document.createElement('td'));
 	var input2 = td2.appendChild(button);
 	input2.classList.add("no_st_button_red");
@@ -155,8 +154,6 @@ function changeIt() {
 	button.onclick = ('onclick', function(){ document.getElementById(tr.id).remove() });
 
     document.getElementById('game_table').tBodies[0].appendChild(tr);
-
-
 
 }
 
@@ -168,28 +165,28 @@ function check_for_repeat()
 </script>
 
 		<div id="page" >
-			<div class="box-header">Создание игры</div>
+			{% block titles %}<div class="box-header">Создание игры</div>{% endblock %}
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры игры: </p>
 				<div class="title">Игра</div>
-				<form  id="pointer_form" action="creategame_params" method="POST" enctype="multipart/form-data">{% csrf_token %}
+				{% block url_form %}<form  id="pointer_form" action="creategame_params" method="POST" enctype="multipart/form-data">{% endblock %}
+				{% csrf_token %}
 					<table id="game_table" class="no_st">
 						<tbody>
-							<tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="game_id" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td><td></td></tr>
+							{% block game_id %}<tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="game_id" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td><td></td></tr>{% endblock %}
 
-							<tr><td >Название игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_name" id="game_name" type="text" value=""  autocomplete="off" required ></td><td></td></tr>
+							{% block game_name %}<tr><td >Название игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_name" id="game_name" type="text" value = ""  autocomplete="off" required ></td><td></td></tr>{% endblock %}
 							<tr>
 								<td style="text-align:left;">Описание:</td>
-								{% block description %}
-								<td><textarea style="width: 300px;" name="description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></textarea></td><td></td>
-								{% endblock %}
+								{% block description %}<td><textarea style="width: 300px;" name="description" id="Description" type="text" spellcheck="true"  autocomplete="off" required ></textarea></td><td></td>{% endblock %}
 							</tr>
 							<tr>
 								<td style="text-align:left;">Инвентарь:</td>
-								{% block inventary %}
-								<td><textarea name="inventory" style="width: 300px;" id="Inventory" type="text" spellcheck="true"  autocomplete="off" ></textarea></td><td></td>
-								{% endblock %}
+								{% block inventory %}<td><textarea name="inventory" style="width: 300px;" id="Inventory" type="text" spellcheck="true"  autocomplete="off" ></textarea></td><td></td>{% endblock %}
 							</tr>
+							{% block pointers %}
+
+							{% endblock %}
 						</tbody>
 					</table>
 					<br/>
