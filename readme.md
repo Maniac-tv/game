@@ -1,5 +1,5 @@
 # Online and offline game or game outside
-Инструкция по запуску проекта 
+Инструкция по запуску проекта \n\r
     1)Создать venv: 'python3 -m venv venv_name' 
     2)Активировать 'source venv/bin/activate' 
     3)Установить библиотеки: 'pip install -r req.txt' 
