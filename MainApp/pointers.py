@@ -7,10 +7,11 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from mnc_game import settings
 
+@login_required
 def create_pointers(request):#Страница создания поинтера
     return render(request, 'templ_create_pointers.html')
 
-
+@login_required
 def pointers_list(request):#Список поинтеров
     f = Form.objects.filter(user=request.user, invisible=False)
     context = {"items": f}
@@ -19,7 +20,7 @@ def pointers_list(request):#Список поинтеров
 
 @login_required
 def create_game_pointers(request):#Сохранение поинтера
-    item = Form(pointer_id=request.POST['pointer_id'], lat=request.POST['lat'], long=request.POST['long'], name_location=request.POST['name_location'], description=request.POST['description'], help=request.POST['help'], answer=request.POST['answer'], area=request.POST['area'], user=request.user)
+    item = Form(pointer_id=request.POST['pointer_id'], lat=request.POST['lat'], long=request.POST['long'], name_location=request.POST['name_location'], description=request.POST['description'], help=request.POST['help'], answer=request.POST['answer'], runtime=request.POST['runtime'], area=request.POST['area'], user=request.user)
     item.save()
     #Если есть файлы создаем папку с названием идентификатора и сохраняем туда
     if 'my_file' in request.FILES:
@@ -39,6 +40,7 @@ def game_pointer_edit_save(request):# Запрос на сохранение о�
     f.description=request.POST['description']
     f.help = request.POST['help']
     f.answer = request.POST['answer']
+    f.runtime = request.POST['runtime']
     f.area = request.POST['area']
     f.user = request.user
     f.save()

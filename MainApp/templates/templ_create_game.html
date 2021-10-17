@@ -86,7 +86,7 @@
 (function($)
 {
 
-	$("#pointer_form").submit(function(event)
+	$("#game_form").submit(function(event)
 	{
 		event.preventDefault(); //prevent default action
 		var post_url = $(this).attr("action"); //get form action url
@@ -166,10 +166,10 @@ function check_for_repeat()
 
 		<div id="page" >
 			{% block titles %}<div class="box-header">Создание игры</div>{% endblock %}
-			<div class="box tab-content" id="create_pointer">
+			<div class="box tab-content" id="create_game">
 				<p>Укажите параметры игры: </p>
 				<div class="title">Игра</div>
-				{% block url_form %}<form  id="pointer_form" action="creategame_params" method="POST" enctype="multipart/form-data">{% endblock %}
+				{% block url_form %}<form  id="game_form" action="creategame_params" method="POST" enctype="multipart/form-data">{% endblock %}
 				{% csrf_token %}
 					<table id="game_table" class="no_st">
 						<tbody>
@@ -190,7 +190,8 @@ function check_for_repeat()
 						</tbody>
 					</table>
 					<br/>
-					<input class="button" type="button" onclick="changeIt();" value="+"> <input class="button" type="submit" value="Save">
+					<input class="button" type="button" onclick="changeIt();" value="+">
+					<input name="submit" onclick="set_class('games_list')" class="button" type="submit" value="Save">
 				</form>
 
 			</div>

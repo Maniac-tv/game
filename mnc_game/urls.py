@@ -16,14 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from MainApp import views
-from MainApp import pointers
+from MainApp import pointers, games
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import auth
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', views.index, name='base'),
     path('login', views.login_page),
     path('out',views.logout),
@@ -35,13 +34,14 @@ urlpatterns = [
     path('game_pointer_edit_save', pointers.game_pointer_edit_save),
     path('edit_pointer/<str:param>', pointers.pointer_editor),
     path('delete_files_pointer/<str:param>', pointers.delete_files_pointer),
-    path('creategame_form', views.creategame_form),
-    path('creategame_params', views.creategame_params),
-    path('games_list', views.games_list, name='games_list'),
-    path('gen_id_game', views.gen_code_game),
-    path('delete_game/<str:param>', views.delete_game),
-    path('game_edit/<str:param>', views.game_edit),
-    path('gameeditor_save', views.gameeditor_save)
+    path('creategame_form', games.creategame_form),
+    path('creategame_params', games.creategame_params),
+    path('games_list', games.games_list, name='games_list'),
+    path('gen_id_game', games.gen_code_game),
+    path('delete_game/<str:param>', games.delete_game),
+    path('game_edit/<str:param>', games.game_edit),
+    path('gameeditor_save', games.gameeditor_save),
+    path('admin/', admin.site.urls)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

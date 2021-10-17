@@ -36,6 +36,10 @@
 		<td><input name="answer" id="answer" type="text" value="{{Items.answer}}" autocomplete="off" required ></td>
 	{% endblock %}
 
+    {% block runtime %}
+		<td><input name="runtime" id="runtime" type="text" value="{{Items.runtime}}" autocomplete="off" required ></td>
+	{% endblock %}
+
     {% block area %}
         {{Area | safe}}
     {% endblock %}

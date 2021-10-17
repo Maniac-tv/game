@@ -13,6 +13,7 @@ class Form (models.Model):
     area = models.TextField(max_length=20)
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
+    runtime = models.IntegerField()
     invisible = models.BooleanField(default=False)
 
 class Game(models.Model):

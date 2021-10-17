@@ -1,4 +1,5 @@
 {% load static %}
+<head><meta charset="utf-8"></head>
 <script>
 	function getcode()
 	{
@@ -68,11 +69,9 @@
 			<div class="box tab-content" id="create_pointer">
 				<p>Укажите параметры поинтера: </p>
 				<div class="title">Поинтер</div>
-				{% block form_url %}
-				<form  id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">
-				{% endblock %}
+				{% block form_url %}<form  id="pointer_form" action="game_pointers" method="POST" enctype="multipart/form-data">{% endblock %}
 					{% csrf_token %}
-					<table >
+					<table>
 						<tbody>
 							<tr>
 								<td style="text-align:right;">Идентиф. локации:</td>
@@ -115,6 +114,12 @@
 								<td style="text-align:right;">Ответ:</td>
 								{% block answer %}
 								<td><input name="answer" id="answer" type="text" value="" autocomplete="off" required ></td>
+								{% endblock %}
+							</tr>
+							<tr>
+								<td style="text-align:right;">Время выполнения:</td>
+								{% block runtime %}
+								<td><input name="runtime" id="runtime" type="number" value="" autocomplete="off" required ></td>
 								{% endblock %}
 							</tr>
 							<tr>
