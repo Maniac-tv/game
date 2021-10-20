@@ -2,9 +2,14 @@
 {% load static %}
 <head>
 		<meta charset="utf-8">
+
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel='stylesheet' href="{% static 'style.css' %}" type='text/css' />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>-->
+		<link href="{% static 'dist/css/lightbox.min.css' %}" rel="stylesheet" />
+
+
+
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 		<script>
 			function get(u,id_cont)
@@ -31,7 +36,7 @@
     </script>
 
 	</head>
-	<body>
+	<body><script src="{% static 'dist/js/lightbox-plus-jquery.min.js' %}"></script>
 		<div id="page-wrapper">
 			<center>
 				<ul id="navigation">

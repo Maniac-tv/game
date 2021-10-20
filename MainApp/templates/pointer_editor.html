@@ -52,6 +52,11 @@
             <td style="text-align:right;"></td>
             <td>
             {{elm}}
+            <a href="media/{{Items.pointer_id}}/{{elm}}" class="example-image-link"  data-lightbox="image-1" data-title="Просмотр">
+            <svg color = "Green" width="16" height="16" viewBox="0 0 448 512" >
+                <path fill="currentColor" d="M416 32H32A32 32 0 0 0 0 64v384a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32zm-16 400H48v-64h352zm0-112h-16l-97.07-121c-7.46-9.31-22.4-9.31-29.86 0l-63.38 79-33.05-45.78c-7.92-11-25.36-11-33.28 0L64 320H48V80h352zM144 176a32 32 0 1 0-32-32 32 32 0 0 0 32 32z" class=""></path></svg>
+            </a>
+
             <a onclick="get('delete_files_pointer/{{Items.pointer_id}}|{{elm}}','#files')" href="#" title="Удалить конкретно">
             <svg xmlns="http://www.w3.org/2000/svg" color = "Red" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>

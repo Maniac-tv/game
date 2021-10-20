@@ -1,4 +1,4 @@
-# Online and offline game or game outside
+
 Инструкция по запуску проекта:
     1)Создать venv: 'python3 -m venv venv_name' 
     2)Активировать 'source venv/bin/activate' 

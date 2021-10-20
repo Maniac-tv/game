@@ -50,6 +50,7 @@ def game_pointer_edit_save(request):# Запрос на сохранение о�
         filename = fs.save(os.path.join(os.path.join(settings.MEDIA_ROOT, request.POST['pointer_id']), elm.name), elm)
     return redirect('pointers_list')
 
+@login_required
 def delete_pointer(request,param):# Удаление поинтера конкретно вместе с файлами и папками
     f = Form.objects.get(pointer_id=param)
     f.invisible = True
@@ -85,6 +86,7 @@ def file_list(path):#Возвращает список файлов
     #print(files)
         return files
 
+@login_required
 def delete_files_pointer(request,param):# Удаление файлов поинтера по одному из формы редактирования поинтера, и возврат оставшихся файлов
     s2=''
     param = param.replace('|', '/')
