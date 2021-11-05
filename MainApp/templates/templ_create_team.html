@@ -1,0 +1,120 @@
+{% load static %}
+<head><meta charset="utf-8"></head>
+<script>
+	function getcode()
+	{
+		$.ajax({
+			url: 'gen_id',
+			cache: false,
+			success: function(html){
+			document.getElementById('Location_code').value = html;
+
+			}
+		});
+}
+</script>
+<style>
+.no_st {
+    margin : initial;
+	padding : initial;
+	#border : 0;
+	font-weight : initial;
+	font-style : initial;
+	font-size : initial;
+	font-family : initial;
+	vertical-align : initial;
+	color : initial;
+	width : 30%;
+	background : #eaeaea;
+	border-collapse : initial;
+	border-spacing : 0;
+	font : 12px/18px Arial, Helvetica Neue, Helvetica, sans-serif;;
+}
+
+</style>
+<style>
+   #inet {width: 300px; /* Ширина поля в пикселах */}
+   #Help{width: 300px; /* Ширина поля в пикселах */}
+   #Description{width: 300px; /* Ширина поля в пикселах */}
+</style>
+
+<script>
+(function($)
+{
+
+	$("#pointer_form").submit(function(event)
+	{
+		event.preventDefault(); //prevent default action
+		var post_url = $(this).attr("action"); //get form action url
+		var request_method = $(this).attr("method"); //get form GET/POST method
+		var form_data = new FormData(this); //Creates new FormData object
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data,
+			contentType: false,
+			cache: false,
+			processData:false
+		}).done(function(response)
+		{ //
+			$("#content").html(response);
+		});
+	});
+})(jQuery)
+</script>
+
+
+		<div id="page">
+			{% block titles %}<div class="box-header">Создание команды</div>{% endblock %}
+			<div class="box tab-content" id="create_pointer">
+				<p>Укажите параметры команды: </p>
+				<div class="title">Команда</div>
+				{% block form_url %}<form  id="pointer_form" action="create_team_save" method="POST" enctype="multipart/form-data">{% endblock %}
+					{% csrf_token %}
+					<table>
+						<tbody>
+							 <tr>
+                            <td style="text-align:right;">Идентиф. команды:</td>
+                            {% block identif %}
+                            <td><input name="team_id" id="team_id" type="text" value="{{id}}" readonly autocomplete="off" required ></td>
+                            {% endblock %}
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">Название команды:</td>
+                            {% block team_name %}
+                            <td><input name="team_name" id="team_name" type="text" value="" autocomplete="off" required ></td>
+                            {% endblock %}
+                        </tr>
+                        <tr class="no_st">
+                            <td style="text-align:right;">Время начала:</td>
+                            {% block start_time %}
+                            <td><input name="start_time" id="start_time" type="datetime-local" autocomplete="off" required size="50"></td>
+                            {% endblock %}
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">Число игроков:</td>
+                            {% block players %}
+                            <td><input name="players" id="players" type="number" autocomplete="off" value="2" required min="2"></td>
+                            {% endblock %}
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">Игра:</td>
+                            <td>
+                                <select name="game_id" id="game_id" style="max-width: 200px;">
+                                {% block games %}
+                                 {% for item in items %}
+                                    <option selected="" value="{{item.game_id}}">{{item.game_name}}</option>
+                                 {% endfor %}
+                                {% endblock %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+							<td></td>
+							<td><input name="submit" onclick="set_class('teams_list')" class="button" type="submit" value="Save" required ></td>
+						</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>

@@ -173,7 +173,7 @@ function check_for_repeat()
 				{% csrf_token %}
 					<table id="game_table" class="no_st">
 						<tbody>
-							{% block game_id %}<tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="game_id" type="text" value="" ondblclick="getcode()" placeholder="Даблклик для генерации" autocomplete="off" required ></td><td></td></tr>{% endblock %}
+							{% block game_id %}<tr><td >Идентификатор игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_id" id="game_id" type="text" value="{{id}}" readonly autocomplete="off" required ></td><td></td></tr>{% endblock %}
 
 							{% block game_name %}<tr><td >Название игры:</td><td style="text-align:left;"><input style="text-align:left;" name="game_name" id="game_name" type="text" value = ""  autocomplete="off" required ></td><td></td></tr>{% endblock %}
 							<tr>

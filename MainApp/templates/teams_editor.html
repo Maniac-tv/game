@@ -1,0 +1,12 @@
+{% extends 'templ_create_team.html' %}
+
+
+    {% block titles %}
+        <div class="box-header">Редактирование команды</div>
+    {% endblock %}
+    {% block form_url %}<form  id="pointer_form" action="editor_team_save" method="POST" enctype="multipart/form-data">{% endblock %}
+    {% block identif %}<td><input name="team_id" id="team_id" type="text" value="{{Items.team_id}}" readonly autocomplete="off" required ></td>{% endblock %}
+    {% block team_name %}<td><input name="team_name" id="team_name" type="text" value="{{Items.team_name}}" autocomplete="off" required ></td>{% endblock %}
+    {% block start_time %}<td><input name="start_time" id="start_time" type="datetime-local" autocomplete="off" required size="50" value="{{Items.start_time}}"></td>{% endblock %}
+    {% block players %}<td><input name="players" id="players" type="number" autocomplete="off" value="{{Items.players}}" required min="2"></td>{% endblock %}
+    {% block games %}<option readonly selected="" value="{{Items.game_id}}">{{Items.game_name}}</option>{% endblock %}

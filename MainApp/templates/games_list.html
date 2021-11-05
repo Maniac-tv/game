@@ -17,11 +17,13 @@
 }
 
 </style>
-
-<table  class="no_st">
+<div id="page"></div>
+<div class="box-header">Список игр</div>
+<div class="box tab-content" >
+<table  >
     <tr>
-        <th><font color="red">Идентификатор</font></th>
-        <th><font color="red">Название игры</font></th>
+        <th><font color="red"><b>Идентификатор</b></font></th>
+        <th><font color="red"><b>Название игры</b></font></th>
     </tr>
     {% for item in items %}
     <tr>
@@ -43,4 +45,4 @@
         </td>
     </tr>
     {% endfor %}
-</table><br/>
+</table></div><br/>

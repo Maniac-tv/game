@@ -28,6 +28,8 @@
 				document.getElementById("games_list").classList.remove("current");
 				document.getElementById("C_pointers").classList.remove("current");
 				document.getElementById("C_game").classList.remove("current");
+				document.getElementById("C_teams").classList.remove("current");
+				document.getElementById("teams_list").classList.remove("current");
 				document.getElementById("logout").classList.remove("current");
 
 				var element = document.getElementById(id);
@@ -42,8 +44,10 @@
 				<ul id="navigation">
 					<li id="List_pointers" onclick="set_class('List_pointers')"><a href="#" onclick="get('pointers_list','#content')">Список мест</a></li>
 					<li id="games_list" onclick="set_class('games_list')"><a href="#" onclick="get('games_list','#content')">Список игр</a></li>
+					<li id="teams_list" onclick="set_class('teams_list')"><a href="#" onclick="get('teams_list','#content')">Список команд</a></li>
 					<li id="C_pointers" onclick="set_class('C_pointers')"><a href="#" onclick="get('create_pointers','#content')">Создать место</a></li>
 					<li id="C_game" onclick="set_class('C_game')"><a href="#" onclick="get('creategame_form','#content')">Создать игру</a></li>
+					<li id="C_teams" onclick="set_class('C_teams')"><a href="#" onclick="get('create_team','#content')">Создать команду</a></li>
 					<li id="logout" class="current"><a href="out">Выход</a></li>
 				</ul>
 			<div id="content"></div>

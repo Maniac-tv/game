@@ -1,8 +1,9 @@
 {% extends 'templ_create_pointers.html' %}
 <body>
-    {%block descr%}
+
+    {% block titles %}
     <div class="box-header">Редактирование поинтеров</div>
-    {%endblock%}
+    {% endblock %}
 
     {% block form_url %}
     <form id="pointer_form" action="game_pointer_edit_save" method="POST" enctype="multipart/form-data">

@@ -9,13 +9,12 @@ from mnc_game import settings
 
 @login_required
 def create_pointers(request):#Страница создания поинтера
-    return render(request, 'templ_create_pointers.html')
+    return render(request, 'templ_create_pointers.html',{"id":gen_code()})
 
 @login_required
 def pointers_list(request):#Список поинтеров
     f = Form.objects.filter(user=request.user, invisible=False)
-    context = {"items": f}
-    return render(request, 'pointer_list.html', context)
+    return render(request, 'pointer_list.html', {"items": f})
 
 
 @login_required
@@ -67,6 +66,7 @@ def pointer_editor(request, param):#Форма для редактировани
     i_list.append('Так себе')
     i_list.append('Бункер/Пустыня')
     f = Form.objects.get(pointer_id=param)
+
     area_list=''
     for elm in i_list:
         if elm == f.area:
@@ -102,8 +102,8 @@ def delete_files_pointer(request,param):# Удаление файлов поин
         s2 = s2 + s
     return HttpResponse(s2)
 
-@login_required
-def gen_code(request):#Генерация кода для поинтера
+
+def gen_code():#Генерация кода для поинтера
     out = ''
     s = "2345789zsxecvumk" #2345789zsxecvumk
     c =1
@@ -116,4 +116,5 @@ def gen_code(request):#Генерация кода для поинтера
         #print(out)
         out = "mnc-" + out
         c = Form.objects.filter(pointer_id=out).count()
-    return HttpResponse(out)
+    return out
+

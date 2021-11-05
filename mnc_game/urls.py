@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from MainApp import views
-from MainApp import pointers, games
+from MainApp import pointers, games, teams
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import auth
@@ -26,6 +26,8 @@ urlpatterns = [
     path('', views.index, name='base'),
     path('login', views.login_page),
     path('out',views.logout),
+    path('admin/', admin.site.urls),
+    #Поинтеры
     path('create_pointers', pointers.create_pointers),
     path('gen_id', pointers.gen_code),
     path('game_pointers', pointers.create_game_pointers),
@@ -34,6 +36,7 @@ urlpatterns = [
     path('game_pointer_edit_save', pointers.game_pointer_edit_save),
     path('edit_pointer/<str:param>', pointers.pointer_editor),
     path('delete_files_pointer/<str:param>', pointers.delete_files_pointer),
+    #Игры
     path('creategame_form', games.creategame_form),
     path('creategame_params', games.creategame_params),
     path('games_list', games.games_list, name='games_list'),
@@ -41,7 +44,13 @@ urlpatterns = [
     path('delete_game/<str:param>', games.delete_game),
     path('game_edit/<str:param>', games.game_edit),
     path('gameeditor_save', games.gameeditor_save),
-    path('admin/', admin.site.urls)
+    #Команды
+    path('create_team', teams.create_team_form),
+    path('create_team_save', teams.create_team_save),
+    path('teams_list', teams.teams_list, name='teams_list'),
+    path('delete_team/<str:param>',teams.delete_team),
+    path('team_edit/<str:param>', teams.team_editor),
+    path('editor_team_save', teams.editor_team_save)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -4,9 +4,14 @@ from MainApp.models import Form, Game
 from django.contrib.auth.decorators import login_required
 from mnc_game import settings
 
-def games_list(request):#Список поинтеров
-    f = Game.objects.filter(user=request.user, invisible = False)
-    context = {"items": f}
+def games(request):
+    f = Game.objects.filter(user=request.user, invisible=False)
+    #context = {"items": f}
+    return f
+
+@login_required
+def games_list(request):#Список игр
+    context = {"items": games(request)}
     return render(request, 'games_list.html', context)
 
 @login_required
@@ -19,7 +24,8 @@ def creategame_form(request):#Страница создания игры
         l.append(elm['name_location'])
         ids.append(elm['pointer_id'])
 
-    context = {"Items": str(l).replace("'",'"'),"ids": str(ids).replace("'",'"')}
+    context = {"Items": str(l).replace("'",'"'),"ids": str(ids).replace("'",'"'), "id" : gen_code_game()}
+    #print(context)
     #print(context)
     return render(request, 'templ_create_game.html', context)
 
@@ -62,15 +68,15 @@ def gameeditor_save(request):#Запрос с параметрами для со
 
 
 @login_required
-def delete_game(request,param):# Удаление поинтера конкретно вместе с файлами и папками
+def delete_game(request,param):# Удаление поинтера
     f = Game.objects.get(game_id=param)
     f.invisible = True
     f.save()
     return redirect('games_list')
 
 
-@login_required
-def gen_code_game(request):#Генерация кода для поинтера
+
+def gen_code_game():#Генерация кода для поинтера
     out = ''
     s = "2345789zsxecvumk" #2345789zsxecvumk
     c =1
@@ -83,7 +89,7 @@ def gen_code_game(request):#Генерация кода для поинтера
         #print(out)
         out = "gme-" + out
         c = Game.objects.filter(game_id=out).count()
-    return HttpResponse(out)
+    return out
 
 @login_required
 def game_edit(request, param):#Генерация страницы редактирования игры
