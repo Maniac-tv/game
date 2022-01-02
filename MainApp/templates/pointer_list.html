@@ -17,6 +17,7 @@
 }
 
 </style>
+{% if items %}
 <div id="page"></div>
 <div class="box-header">Список поинтеров</div>
 <div class="box tab-content" >
@@ -24,11 +25,13 @@
         <tr>
             <th></b><font color="red"><b>Идентификатор</b></font></th>
             <th><font color="red"><b>Название поинтера</b></font></th>
+            <th><font color="red"><b>Файлов</b></font></th>
         </tr>
         {% for item in items %}
         <tr>
             <td><b>{{item.pointer_id}}</b></td>
             <td>{{item.name_location}}</td>
+            <td>{{item.files_count}}</td>
             <td>
                 <a onclick="get('edit_pointer/{{item.pointer_id}}','#content')" href="#" title="Редактировать">
                 <svg xmlns="http://www.w3.org/2000/svg" placeholder="Редактировать" color="green" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -47,4 +50,7 @@
         {% endfor %}
     </table>
 </div>
+{% else %}
+    Тут пока ничего нет, но возможно скоро появится
+{% endif %}
 <br/>

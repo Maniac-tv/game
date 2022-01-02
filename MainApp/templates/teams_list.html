@@ -17,6 +17,7 @@
 }
 
 </style>
+{% if items %}
 <div id="page"></div>
 <div class="box-header">Список команд</div>
 <div class="box tab-content" >
@@ -53,5 +54,8 @@
         {% endfor %}
     </table>
 </div>
+{% else %}
+    Тут пока ничего нет, но возможно скоро появится
+{% endif %}
 <br/>
 

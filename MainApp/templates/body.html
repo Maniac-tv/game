@@ -7,9 +7,6 @@
 		<link rel='stylesheet' href="{% static 'style.css' %}" type='text/css' />
 		<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>-->
 		<link href="{% static 'dist/css/lightbox.min.css' %}" rel="stylesheet" />
-
-
-
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 		<script>
 			function get(u,id_cont)
@@ -55,20 +52,9 @@
 		</div>
 
 		<br class="clear">
-		<div id="footer"><label onclick="alert('1)Создать поинтер \n2)Создать игру\n3)Создать комманду')">mnc_game</laabel></div>
+		<div id="footer"><label onclick="alert('1)Создать поинтер \n2)Создать игру\n3)Создать команду')">mnc_game</laabel></div>
 
 	</body>
 {% else %}
-<br/><br/><br/><br/><br/>
-<center>
-	<form method="post" action="login">{% csrf_token %}
-		<label for="username">username: </label>
-		<input name="username" type="text">
-		<label for="password">password: </label>
-		<input name="password" type="password">
-		<button type="submit">login</button>
-	</form>
-</center>
-
-
+	<meta http-equiv="refresh" content="1;URL=auth_form" />
 {% endif %}

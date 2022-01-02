@@ -1,0 +1,81 @@
+{% load static %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset="UTF-8">
+    <title>What is it?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="{% static 'dist/js/lightbox-plus-jquery.min.js' %}"></script>
+    <style>
+   body {
+    background: #420420; /* Цвет фона */
+    color: #fc0; /* Цвет текста */
+   }
+  </style>
+    <style>
+    .fixed-textarea {
+        top: 10%;
+        left: 12px;
+        right: 10px;
+        bottom: 10px;
+        position: absolute;
+    }
+    .fixed-textarea textarea {
+        width: 100%;
+        height: 88%;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin: 0px auto;
+        border-collapse: collapse;
+        display: flex;
+        flex-flow: column;
+        resize: none;
+    }
+    </style>
+
+</head>
+<body>
+<script src="{% static 'dist/js/lightbox-plus-jquery.min.js' %}"></script>
+
+    <center>
+        <div id="content">
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+              <form id="game_form" action="player_get_game" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                  <table border="0">
+                      <tr><td><input type="text" id="game_code" name="game_code" placeholder="Введите код" class="form-control" required></td></tr>
+                      <tr><td></td></tr>
+                      <tr><td><center><input name="submit" type="Submit" value="Send" class="form-control"></center></td></tr>
+                   </table>
+              </form>
+            <script>
+                (function($)
+                {
+                    $("#game_form").submit(function(event)
+                    {
+                        event.preventDefault();
+                        var post_url = $(this).attr("action");
+                        var request_method = $(this).attr("method");
+                        var form_data = new FormData(this);
+                        $.ajax({
+                            url : post_url,
+                            type: request_method,
+                            data : form_data,
+                            contentType: false,
+                            cache: false,
+                            processData:false
+                        }).done(function(response)
+                        { //
+
+                            $("#content").html(response);
+                        });
+                    });
+                })(jQuery)
+            </script>
+        </div>
+    </center>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://getbootstrap.com//docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>

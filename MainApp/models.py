@@ -36,6 +36,7 @@ class Teams(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
     invisible = models.BooleanField(default=False)
     create_time = models.DateTimeField(default=datetime.now, blank=True)
+    game_code = models.TextField(max_length=25, db_index=True)
 
 class Questions(models.Model):
     question_id = models.IntegerField()
@@ -43,4 +44,12 @@ class Questions(models.Model):
     game_id = models.TextField(max_length=20, db_index=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+class game_user(models.Model):
+    user_name = models.TextField(max_length=50, db_index=True)
+    user_id = models.TextField(max_length=75, db_index=True)
+    team_id = models.TextField(max_length=25, db_index=True)
+    user_ip = models.TextField(max_length=25, db_index=True)
+    user_active = models.BooleanField(default=True)
+
 # Create your models here.

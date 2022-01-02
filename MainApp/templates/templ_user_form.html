@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <body>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Game</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Chat</button>
+      </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="fixed-textarea"><textarea class="form-control" readonly>Admin:Hi!&#13;&#10;User:Hi!</textarea><br/></div>
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+          <div class="container-fluid">
+            <input type="text" class="form-control" style="width:70%">
+            <input type="Button" class="form-control" value="Send" style="width:25%">
+          </div>
+        </nav>
+      </div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="fixed-textarea"><textarea class="form-control" readonly>The Game Chat</textarea><br/></div>
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+          <div class="container-fluid">
+            <input type="text" class="form-control" style="width:70%">
+            <input type="Button" class="form-control" value="Send" style="width:25%">
+          </div>
+        </nav>
+      </div>
+    </div>
+ </body>
+</html>

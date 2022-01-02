@@ -77,13 +77,13 @@ def pointer_editor(request, param):#Форма для редактировани
     fl = file_list(os.path.join(settings.MEDIA_ROOT, param))
     #print(f.__doc__)
     context = {"Items" : f,"Files":fl, 'Area':area_list}
+
     #print(context)
     return render(request, 'pointer_editor.html', context)
 
 def file_list(path):#Возвращает список файлов
     if os.path.exists(path):
         files = os.listdir(path)
-    #print(files)
         return files
 
 @login_required

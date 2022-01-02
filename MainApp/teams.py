@@ -6,7 +6,7 @@ from mnc_game import settings
 import random
 
 
-def gen_code():#Генерация кода для поинтера
+def gen_code():#Генерация кода
     out = ''
     s = "2345789zsxecvumk" #2345789zsxecvumk
     c =1
@@ -21,9 +21,24 @@ def gen_code():#Генерация кода для поинтера
         c = Teams.objects.filter(team_id=out).count()
     return out
 
+def gen_code_game():#Генерация кода for start game
+    out = ''
+    s = "1238XCMKHFYEAPT"
+    c =1
+    #c = Teams.objects.filter(team_id=out).count()
+    while(c == 1):
+        out=''
+        for i in range(0, 11):
+            iout = random.randrange(0, len(s))
+            out = out + s[iout]
+            #print(out)
+        #out = "team-" + out
+        c = Teams.objects.filter(team_id=out).count()
+    return out
+
 @login_required
 def create_team_form(request):
-    context = {"id": gen_code(), "items":games.games(request)}
+    context = {"id": gen_code(), "items":games.games(request), "game_code":gen_code_game()}
     return render(request, 'templ_create_team.html', context)
 
 @login_required
@@ -34,7 +49,8 @@ def create_team_save(request):
         players=request.POST['players'],
         start_time=request.POST['start_time'],
         user = request.user,
-        game_id = request.POST['game_id']
+        game_id = request.POST['game_id'],
+        game_code = request.POST['game_code']
     )
     item.save()
     return redirect('teams_list')
@@ -68,7 +84,7 @@ def team_editor(request, param):
     t = Teams.objects.get(team_id=param)
     g = Game.objects.get(game_id=t.game_id)
     print(g.game_name)
-    l={"team_id":t.team_id, "team_name":t.team_name, "players":t.players, "start_time":format(t.start_time,'%Y-%m-%dT%H:%M'), "game_id":t.game_id, "game_name":g.game_name}
+    l={"team_id":t.team_id, "team_name":t.team_name, "players":t.players, "start_time":format(t.start_time,'%Y-%m-%dT%H:%M'), "game_id":t.game_id, "game_name":g.game_name, "game_code":t.game_code}
     return render(request, 'teams_editor.html', {"Items":l})
 
 @login_required

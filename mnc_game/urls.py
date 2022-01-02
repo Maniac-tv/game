@@ -16,16 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from MainApp import views
-from MainApp import pointers, games, teams
+from MainApp import pointers, games, teams, auth_algo
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import auth
 
 
 urlpatterns = [
-    path('', views.index, name='base'),
-    path('login', views.login_page),
-    path('out',views.logout),
+    path('adminka', auth_algo.index, name='adminka'),
+    path('auth_form', auth_algo.auth_form, name='auth_form'),
+    path('login', auth_algo.login_page, name="login"),
+    path('out',auth_algo.logout),
     path('admin/', admin.site.urls),
     #Поинтеры
     path('create_pointers', pointers.create_pointers),
@@ -50,7 +51,11 @@ urlpatterns = [
     path('teams_list', teams.teams_list, name='teams_list'),
     path('delete_team/<str:param>',teams.delete_team),
     path('team_edit/<str:param>', teams.team_editor),
-    path('editor_team_save', teams.editor_team_save)
+    path('editor_team_save', teams.editor_team_save),
+    #Работа с игроками
+    path('player_get_game', views.player_prev),
+    path('', views.player_get_code),
+    path('check_login',views.check_login)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

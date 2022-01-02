@@ -11,7 +11,12 @@ def games(request):
 
 @login_required
 def games_list(request):#Список игр
-    context = {"items": games(request)}
+    l=[]
+    for elm in games(request):
+        count = len(elm.pointers.split('|'))
+        d = {"game_id":elm.game_id, "game_name":elm.game_name, "description":elm.description, "inventory":elm.inventory,"pointers":elm.pointers, "create_time":elm.create_time, "count":count}
+        l.append(d)
+    context = {"items": l}
     return render(request, 'games_list.html', context)
 
 @login_required
@@ -23,14 +28,10 @@ def creategame_form(request):#Страница создания игры
     for elm in f:
         l.append(elm['name_location'])
         ids.append(elm['pointer_id'])
-
     context = {"Items": str(l).replace("'",'"'),"ids": str(ids).replace("'",'"'), "id" : gen_code_game()}
     #print(context)
     #print(context)
     return render(request, 'templ_create_game.html', context)
-
-
-
 
 @login_required
 def creategame_params(request):#Запрос с параметрами для создания игры
@@ -56,7 +57,6 @@ def gameeditor_save(request):#Запрос с параметрами для со
     #Все поинтеры в строку и убираем задний делимитор
     s_p = s_p.strip('|')
     #Засовываем все в таблицу
-
     game = Game.objects.get(game_id=request.POST['game_id'])
     game.game_name = request.POST['game_name']
     game.description = request.POST['description']
@@ -66,7 +66,6 @@ def gameeditor_save(request):#Запрос с параметрами для со
     game.save()
     return redirect('games_list')
 
-
 @login_required
 def delete_game(request,param):# Удаление поинтера
     f = Game.objects.get(game_id=param)
@@ -74,9 +73,7 @@ def delete_game(request,param):# Удаление поинтера
     f.save()
     return redirect('games_list')
 
-
-
-def gen_code_game():#Генерация кода для поинтера
+def gen_code_game():#Генерация кода
     out = ''
     s = "2345789zsxecvumk" #2345789zsxecvumk
     c =1
@@ -116,6 +113,3 @@ def game_edit(request, param):#Генерация страницы редакт�
     #print(g.game_name)
     context = {"pointers": s2, "game":g, "Items": str(l).replace("'", '"'), "ids": str(ids).replace("'", '"')}
     return render(request, 'game_editor.html', context)
-
-
-

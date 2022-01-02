@@ -1,0 +1,62 @@
+    {% if Items.button %}
+    <form id="game_form" action="check_login" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% endif %}
+
+    <table border="0" class="table">
+    <tr>
+      <td>Кол-во человек:</td>
+      <td>{% block players %}{{Items.players}}{% endblock %}</td>
+    </tr>
+    <tr>
+      <td>Время начала:</td>
+      <td>{% block start_time %}{{Items.start_time}}{% endblock %}</td>
+    </tr>
+    <tr>
+      <td>Инвентарь:</td>
+      <td align="left">{% block inventory %}{{Items.inventory}}{% endblock %}</td>
+    </tr>
+    <tr>
+      <td align="center" colspan="2">Описание:</td>
+    </tr>
+    <tr>
+      <td align="center" colspan="2">{% block description %}{{Items.description}}{% endblock %}</td>
+    </tr>
+    {% if Items.button %}
+        <tr>
+          <td colspan="2">
+              <input type="text" id="game_nick" name="game_nick" placeholder="Введите ник" class="form-control" required>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input name="submit"  type="Submit" value="Enter" class="form-control">
+          </td>
+        </tr>
+    {% endif %}
+</table>
+</form>
+<script>
+    (function($)
+    {
+        $("#game_form").submit(function(event)
+        {
+            event.preventDefault();
+            var post_url = $(this).attr("action");
+            var request_method = $(this).attr("method");
+            var form_data = new FormData(this);
+            $.ajax({
+                url : post_url,
+                type: request_method,
+                data : form_data,
+                contentType: false,
+                cache: false,
+                processData:false
+            }).done(function(response)
+            { //
+
+                $("#content").html(response);
+            });
+        });
+    })(jQuery)
+</script>
